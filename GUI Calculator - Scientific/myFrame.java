@@ -21,29 +21,7 @@ class myFrame implements ActionListener{
   
   JLabel label = new JLabel();
 
-  JButton button0;
-  JButton button1;
-  JButton button2;
-  JButton button3;
-  JButton button4;
-  JButton button5;
-  JButton button6;
-  JButton button7;
-  JButton button8;
-  JButton button9;
-  JButton buttonAdd;
-  JButton buttonSubtract;
-  JButton buttonMultiply;
-  JButton buttonDivide;
-  JButton buttonEqual;
-  JButton buttonDot;
-  JButton buttonAC;
-  JButton buttonSin;
-  JButton buttonCos;
-  JButton buttonTan;
-  JButton buttonLog;
-  JButton buttonLn;
-  JButton buttonSqrt;
+  JButton button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, buttonAdd, buttonSubtract, buttonMultiply, buttonDivide, buttonEqual, buttonDot, buttonAC, buttonSin, buttonCos, buttonTan, buttonLog, buttonLn, buttonSqrt, buttonExponent, buttonEXP;
 
   myFrame(){
     JFrame frame = new JFrame();
@@ -143,6 +121,14 @@ class myFrame implements ActionListener{
     buttonSqrt.setBounds(10, 258, 100, 50);
     buttonSqrt.addActionListener(this);
 
+    buttonExponent = new JButton("x^y");
+    buttonExponent.setBounds(10, 93, 100, 50);
+    buttonExponent.addActionListener(this);
+
+    buttonEXP = new JButton("EXP");
+    buttonEXP.setBounds(10, 313, 100, 50);
+    buttonEXP.addActionListener(this);
+
     frame.setTitle("GUI Calculator");
     frame.setSize(540,400);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -173,190 +159,107 @@ class myFrame implements ActionListener{
     frame.add(buttonLog);
     frame.add(buttonLn);
     frame.add(buttonSqrt);
+    frame.add(buttonExponent);
+    frame.add(buttonEXP);
+  }
+  public void numOutput(String num){
+    if(num1 == "" && scientificnum == ""){
+        continuenum1 = true;
+        continuenum2 = false;
+      }
+    if (continuescientificnum){
+      scientificnum += num;
+      label.setText(" " + operator + " " + scientificnum);
+    }
+    else if(continuenum1){
+      num1 += num;
+      label.setText(" " + num1 + " " + operator + " " + num2);
+    }else if (continuenum2){
+      num2 += num;
+      label.setText(" " + num1 + " " + operator + " " + num2);
+    }
+  }
+  public void operatorOutput(String op){
+    if(continuenum1 == false && continuenum2 == false){
+      num1 = String.valueOf(result);
+      operator = op;
+      continuenum1 = false;
+      continuenum2 = true;
+      label.setText(" " + num1 + " " + operator + " " + num2);
+    }
+    else if (scientificnum != ""){
+      result = 0;
+      num1 = scientificnum;
+      operator = op;
+      continuenum1 = false;
+      continuenum2 = true;
+      label.setText(" " + num1 + " " + operator + " " + num2);
+    }
+    else{
+      result = 0;
+      operator = op;
+      continuenum1 = false;
+      continuenum2 = true;
+      label.setText(" " + num1 + " " + operator + " " + num2);
+    }
+  }
+  public void scientificOutput(String sciOp){
+    if (continuescientificnum == false && !(result == 0.0)){
+      scientificnum = String.valueOf(result);
+      operator = sciOp;
+      continuescientificnum = true;
+      label.setText(" " + operator + " " + scientificnum);
+    } else {
+      result = 0;
+      operator = sciOp;
+      continuescientificnum = true;
+      label.setText(operator);
+    }
   }
   public void actionPerformed(ActionEvent e){
+    //numbers
     if (e.getSource() == button0){
-      if(num1 == ""){
-        continuenum1 = true;
-        continuenum2 = false;
-      }
-      if (continuescientificnum){
-        scientificnum += "0";
-        label.setText(" " + operator + " " + scientificnum);
-        
-      }
-      else if(continuenum1){
-        num1 += "0";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else if (continuenum2){
-        num2 += "0";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      numOutput("0");
     }
     if (e.getSource() == button1){
-      if(num1 == ""){
-        continuenum1 = true;
-        continuenum2 = false;
-      }
-      if (continuescientificnum){
-        scientificnum += "1";
-        label.setText(" " + operator + " " + scientificnum);
-        
-      }
-      else if(continuenum1){
-        num1 += "1";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else if (continuenum2){
-        num2 += "1";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      numOutput("1");
     }
     if (e.getSource() == button2){
-      if(num1 == ""){
-        continuenum1 = true;
-        continuenum2 = false;
-      }
-      if (continuescientificnum){
-        scientificnum += "2";
-        label.setText(" " + operator + " " + scientificnum);
-        
-      }
-      else if(continuenum1){
-        num1 += "2";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else if (continuenum2){
-        num2 += "2";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      numOutput("2");
     }
     if (e.getSource() == button3){
-      if(num1 == ""){
-        continuenum1 = true;
-        continuenum2 = false;
-      }
-      if (continuescientificnum){
-        scientificnum += "3";
-        label.setText(" " + operator + " " + scientificnum);
-        
-      }
-      else if(continuenum1){
-        num1 += "3";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else if (continuenum2){
-        num2 += "3";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      numOutput("3");
     }
     if (e.getSource() == button4){
-      if(num1 == ""){
-        continuenum1 = true;
-        continuenum2 = false;
-      }
-      if (continuescientificnum){
-        scientificnum += "4";
-        label.setText(" " + operator + " " + scientificnum);
-        
-      }
-      else if(continuenum1){
-        num1 += "4";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else if (continuenum2){
-        num2 += "4";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      numOutput("4");
     }
     if (e.getSource() == button5){
-      if(num1 == ""){
-        continuenum1 = true;
-        continuenum2 = false;
-      }
-      if (continuescientificnum){
-        scientificnum += "5";
-        label.setText(" " + operator + " " + scientificnum);
-       
-      }
-      else if(continuenum1){
-        num1 += "5";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else if (continuenum2){
-        num2 += "5";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      numOutput("5");
     }
     if (e.getSource() == button6){
-      if(num1 == ""){
-        continuenum1 = true;
-        continuenum2 = false;
-      }
-      if (continuescientificnum){
-        scientificnum += "6";
-        label.setText(" " + operator + " " + scientificnum);
-       
-      }
-      else if(continuenum1){
-        num1 += "6";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else if (continuenum2){
-        num2 += "6";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      numOutput("6");
     }
     if (e.getSource() == button7){
-      if(num1 == ""){
-        continuenum1 = true;
-        continuenum2 = false;
-      }
-      if (continuescientificnum){
-        scientificnum += "7";
-        label.setText(" " + operator + " " + scientificnum);
-        
-      }
-      else if(continuenum1){
-        num1 += "7";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else if (continuenum2){
-        num2 += "7";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      numOutput("7");
     }
     if (e.getSource() == button8){
-      if(num1 == ""){
-        continuenum1 = true;
-        continuenum2 = false;
-      }
-      if (continuescientificnum){
-        scientificnum += "8";
-        label.setText(" " + operator + " " + scientificnum);
-        
-      }
-      else if(continuenum1){
-        num1 += "8";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else if (continuenum2){
-        num2 += "8";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      numOutput("8");
     }
     if (e.getSource() == button9){
-      if(num1 == ""){
+      numOutput("9");
+    }
+    if (e.getSource() == buttonDot){
+      if(num1 == "" && scientificnum == ""){
         continuenum1 = true;
         continuenum2 = false;
       }
       if (continuescientificnum){
-        scientificnum += "9";
-        label.setText(" " + operator + " " + scientificnum);
-        
+        if (!scientificnum.contains(".")){
+          scientificnum += ".";
+          label.setText(" " + operator + " " + scientificnum);
+        }
       }
       else if(continuenum1){
-        num1 += "9";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else if (continuenum2){
-        num2 += "9";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
-    }
-    if (e.getSource() == buttonDot){
-      if(continuenum1){
         if (!num1.contains(".")){
           num1 += ".";
           label.setText(" " + num1 + " " + operator + " " + num2);
@@ -368,66 +271,48 @@ class myFrame implements ActionListener{
         }
       }
     }
+
+    //operators
     if (e.getSource() == buttonAdd){
-      if(continuenum1 == false && continuenum2 == false){
-        num1 = String.valueOf(result);
-        operator = "+";
-        continuenum1 = false;
-        continuenum2 = true;
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else{
-        result = 0;
-        continuenum1 = false;
-        continuenum2 = true;
-        operator = "+";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      operatorOutput("+");
     }
     if (e.getSource() == buttonSubtract){
-      if(continuenum1 == false && continuenum2 == false){
-        num1 = String.valueOf(result);
-        operator = "-";
-        continuenum1 = false;
-        continuenum2 = true;
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else{
-        result = 0;
-        continuenum1 = false;
-        continuenum2 = true;
-        operator = "-";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      operatorOutput("-");
     }
     if (e.getSource() == buttonMultiply){
-      if(continuenum1 == false && continuenum2 == false){
-        num1 = String.valueOf(result);
-        operator = "*";
-        continuenum1 = false;
-        continuenum2 = true;
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else{
-        result = 0;
-        continuenum1 = false;
-        continuenum2 = true;
-        operator = "*";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      operatorOutput("*");
     }
     if (e.getSource() == buttonDivide){
-      if(continuenum1 == false && continuenum2 == false){
-        num1 = String.valueOf(result);
-        operator = "/";
-        continuenum1 = false;
-        continuenum2 = true;
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }else{
-        result = 0;
-        continuenum1 = false;
-        continuenum2 = true;
-        operator = "/";
-        label.setText(" " + num1 + " " + operator + " " + num2);
-      }
+      operatorOutput("/");
     }
+    if (e.getSource() == buttonExponent){
+      operatorOutput("^");
+    }
+    if (e.getSource() == buttonEXP){
+      operatorOutput("E");
+    }
+
+    //Scientific calculations
+    if (e.getSource() == buttonSin){
+      scientificOutput("sin");
+    }
+    if (e.getSource() == buttonCos){
+      scientificOutput("cos");
+    }
+    if (e.getSource() == buttonTan){
+      scientificOutput("tan");
+    }
+    if (e.getSource() == buttonLog){
+      scientificOutput("log");
+    }
+    if (e.getSource() == buttonLn){
+      scientificOutput("ln");
+    }
+    if (e.getSource() == buttonSqrt){
+      scientificOutput("\u221A");
+    }
+
+    //calculate
     if(e.getSource() == buttonEqual){
       continuenum1 = false;
       continuenum2 = false;
@@ -479,6 +364,14 @@ class myFrame implements ActionListener{
         result = convertedNum1 / convertedNum2;
         label.setText(" " + num1 + " " + operator + " " + num2 + " = " + result);
       }
+      else if (operator.equals("^")){
+        result = Math.pow(convertedNum1, convertedNum2);
+        label.setText(" " + num1 + " " + operator + " " + num2 + " = " + result);
+      }
+      else if (operator.equals("E")){
+        result = convertedNum1 * Math.pow(10, convertedNum2);
+        label.setText(" " + num1 + " " + operator + " " + num2 + " = " + result);
+      }
       num1 = "";
       num2 = "";
       scientificnum = "";
@@ -500,37 +393,8 @@ class myFrame implements ActionListener{
       continuenum1 = true;
       continuenum2 = false;
       continuescientificnum = false;
+      scientificnum = "";
       label.setText(" " + num1 + " " + operator + " " + num2);
-    }
-    if (e.getSource() == buttonSin){
-      operator = "sin";
-      continuescientificnum = true;
-      label.setText(operator);
-    }
-    if (e.getSource() == buttonCos){
-      operator = "cos";
-      continuescientificnum = true;
-      label.setText(operator);
-    }
-    if (e.getSource() == buttonTan){
-      operator = "tan";
-      continuescientificnum = true;
-      label.setText(operator);
-    }
-    if (e.getSource() == buttonLog){
-      operator = "log";
-      continuescientificnum = true;
-      label.setText(operator);
-    }
-    if (e.getSource() == buttonLn){
-      operator = "ln";
-      continuescientificnum = true;
-      label.setText(operator);
-    }
-    if (e.getSource() == buttonSqrt){
-      operator = "\u221A";
-      continuescientificnum = true;
-      label.setText(operator);
     }
   }
 }
